@@ -1,5 +1,12 @@
 from collections.abc import Generator
 
+import sys
+from pathlib import Path
+
+# Ensure repository root is on sys.path so imports like `backend.app...` resolve
+repo_root = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(repo_root))
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -7,7 +14,7 @@ from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from backend.app.core.database import Base, get_db
-from app.main import app
+from main import app
 
 TEST_DATABASE_URL = "sqlite://"
 

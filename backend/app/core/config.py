@@ -1,43 +1,16 @@
-from collections.abc import Generator
-
-import pytest
-from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
-from sqlalchemy.pool import StaticPool
-
-from backend.app.core.database import Base, get_db
-from app.main import app
-
-TEST_DATABASE_URL = "sqlite://"
+from pydantic_settings import BaseSettings
 
 
-@pytest.fixture
-def db_session() -> Generator[Session, None, None]:
-    engine = create_engine(
-        TEST_DATABASE_URL,
-        connect_args={"check_same_thread": False},
-        poolclass=StaticPool,
-    )
-    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    Base.metadata.create_all(bind=engine)
-    session = TestingSessionLocal()
-    try:
-        yield session
-    finally:
-        session.close()
-        Base.metadata.drop_all(bind=engine)
+class Settings(BaseSettings):
+    app_name: str = "Car Dealership Inventory"
+    database_url: str = "sqlite:///./dev.db"
+    secret_key: str = "change-me-in-production"
+    algorithm: str = "HS256"
+    access_token_expire_minutes: int = 60
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
 
 
-@pytest.fixture
-def client(db_session: Session) -> Generator[TestClient, None, None]:
-    def override_get_db():
-        try:
-            yield db_session
-        finally:
-            pass
-
-    app.dependency_overrides[get_db] = override_get_db
-    with TestClient(app) as test_client:
-        yield test_client
-    app.dependency_overrides.clear()
+settings = Settings()
