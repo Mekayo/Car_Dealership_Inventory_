@@ -6,6 +6,8 @@ A full-stack car dealership inventory application with:
 - JWT authentication and role-based access control
 - Vehicle CRUD, filtering, purchase, and restocking workflows
 
+Live demo: [Car Dealership Inventory](https://car-dealership-inventory-five.vercel.app/login)
+
 ## Features
 
 - User registration and login with JWT tokens
