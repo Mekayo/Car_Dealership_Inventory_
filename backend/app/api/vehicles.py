@@ -81,4 +81,4 @@ def delete_vehicle(vehicle_id: int, db: Session = Depends(get_db), _: object = D
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vehicle not found")
 
     db.delete(vehicle)
-    db.commit()
+    db.commit()
