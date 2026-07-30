@@ -30,8 +30,12 @@ def register(payload: UserCreate, db: Session = Depends(get_db)) -> User:
 @router.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)) -> Token:
     user = db.query(User).filter(User.email == form_data.username).first()
+
     if not user or not verify_password(form_data.password, user.hashed_password):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid credentials",
+        )
 
     token = create_access_token(subject=user.email)
-    return Token(access_token=token)
+    return Token(access_token=token)

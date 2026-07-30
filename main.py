@@ -21,10 +21,3 @@ app.include_router(api_router, prefix="/api")
 def health_check() -> dict[str, str]:
     return {"status": "ok"}
 
-def test_root(client):
-    response = client.get("/")
-
-    assert response.status_code == 200
-    assert response.json() == {
-        "message": "Hello"
-    }

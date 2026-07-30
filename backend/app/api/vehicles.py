@@ -75,13 +75,10 @@ def update_vehicle(
 
 
 @router.delete("/{vehicle_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_vehicle( vehicle_id: int, db: Session = Depends(get_db), _: object = Depends(require_admin)) -> None:
+def delete_vehicle(vehicle_id: int, db: Session = Depends(get_db), _: object = Depends(require_admin)) -> None:
     vehicle = db.query(Vehicle).filter(Vehicle.id == vehicle_id).first()
     if not vehicle:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vehicle not found")
 
     db.delete(vehicle)
-    db.commit()
-
-# @router.get("/categories", response_model=list[str])
-# def search
+    db.commit()

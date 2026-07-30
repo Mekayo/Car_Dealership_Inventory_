@@ -5,7 +5,7 @@ from backend.app.model.models import UserRole, VehicleCategory
 
 class UserCreate(BaseModel):
     email: EmailStr
-    password: str = Field(min_length=8)
+    password: str = Field(min_length=8, max_length=128)
     role: UserRole = UserRole.CUSTOMER
 
 
@@ -40,7 +40,6 @@ class VehicleCreate(VehicleBase):
 
 
 class VehicleUpdate(BaseModel):
-    
     make: str | None = Field(default=None, min_length=1, max_length=100)
     model: str | None = Field(default=None, min_length=1, max_length=100)
     category: VehicleCategory | None = None
