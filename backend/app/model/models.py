@@ -3,7 +3,7 @@ import enum
 from sqlalchemy import Enum, Float, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from backend.app.core.database import Base
+from app.core.database import Base
 
 class UserRole(str, enum.Enum):
     ADMIN = "admin"

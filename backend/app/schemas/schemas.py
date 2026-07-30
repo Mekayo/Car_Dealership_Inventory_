@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field
 
-from backend.app.model.models import UserRole, VehicleCategory
+from app.model.models import UserRole, VehicleCategory
 
 
 class UserCreate(BaseModel):

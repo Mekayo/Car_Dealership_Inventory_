@@ -7,9 +7,9 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from backend.app.core.config import settings
-from backend.app.core.database import get_db
-from backend.app.model.models import User, UserRole
+from app.core.config import settings
+from app.core.database import get_db
+from app.model.models import User, UserRole
 
 import bcrypt
 
