@@ -55,7 +55,7 @@ def create_vehicle(
     return vehicle
 
 
-@router.patch("/{vehicle_id}", response_model=VehicleResponse)
+@router.put("/{vehicle_id}", response_model=VehicleResponse)
 def update_vehicle(
     vehicle_id: int,
     payload: VehicleUpdate,
@@ -82,3 +82,6 @@ def delete_vehicle( vehicle_id: int, db: Session = Depends(get_db), _: object = 
 
     db.delete(vehicle)
     db.commit()
+
+# @router.get("/categories", response_model=list[str])
+# def search
